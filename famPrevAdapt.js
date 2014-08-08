@@ -13,6 +13,7 @@
 			if(data)
 			{
 				if(option == 'resize') { data.resize(); return true }
+				if(option == 'run') { data.run(); return true }
 				else if($.fn.wJSNova.defaultSettings[option] !== undefined)
 				{
 					if(settings !== undefined){
@@ -38,7 +39,6 @@
 
 			$elem.append(jsn.generate());
 			jsn.resize();
-			// jsn.run();
 
 			$elem.data('_wJSNova', jsn);
 		});
