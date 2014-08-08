@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Websanova jQuery Plugin Development Boilerplate</title>
+
+	<script type="text/javascript" src="./inc/jquery.1.7.1.min.js"></script>
+	
+	<script type="text/javascript" src="./famPrevAdapt.js"></script>
+	
+	<style>
+		body,html{margin:0px; overflow:hidden;}
+
+		body div._wJSNova_sidebar { display: none; width: 0; }
+	</style>
+</head>
+<body>
+
+	<div id="JSNova" style="width:100%;height:0px;"></div>
+
+	<script type="text/javascript">
+		
+		var jsn = null;
+
+		window.famousContent = {
+		  html: "<div>some HTML content</div>",
+		  css: ".some-css{display: none;}",
+		  js: "var some = 'javascript';"
+		};
+
+		window.setFamousContent = function(fCont) {
+			if (typeof(fCont) != "undefined")	{
+				window.famousContent = fCont;
+			}
+		}
+
+		$(document).ready(function()
+		{
+			$('#JSNova').height($(window).height());
+			jsn = $("#JSNova").wJSNova();
+			jsn.wJSNova('resize');
+		});
+		
+		$(window).resize(function()
+		{
+			$('#JSNova').height($(window).height());
+			jsn.wJSNova('resize');
+		});
+
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
