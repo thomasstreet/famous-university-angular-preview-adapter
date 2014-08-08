@@ -30,21 +30,21 @@
 		window.setFamousContent = function(fCont) {
 			if (typeof(fCont) != "undefined")	{
 				window.famousContent = fCont;
-				jsn.wJSNova('run');
+				jsn.famPrevAdapt('run');
 			}
 		}
 
 		$(document).ready(function()
 		{
 			$('#JSNova').height($(window).height());
-			jsn = $("#JSNova").wJSNova();
-			jsn.wJSNova('resize');
+			jsn = $("#JSNova").famPrevAdapt();
+			jsn.famPrevAdapt('resize');
 		});
 		
 		$(window).resize(function()
 		{
 			$('#JSNova').height($(window).height());
-			jsn.wJSNova('resize');
+			jsn.famPrevAdapt('resize');
 		});
 
 	</script>

@@ -1,6 +1,6 @@
 (function($)
 {
-	$.fn.wJSNova = function(option, settings)
+	$.fn.famPrevAdapt = function(option, settings)
 	{	
 		if(typeof option === 'object')
 		{
@@ -8,13 +8,13 @@
 		}
 		else if(typeof option === 'string')
 		{
-			var data = this.data('_wJSNova');
+			var data = this.data('_famPrevAdapt');
 
 			if(data)
 			{
 				if(option == 'resize') { data.resize(); return true }
 				if(option == 'run') { data.run(); return true }
-				else if($.fn.wJSNova.defaultSettings[option] !== undefined)
+				else if($.fn.famPrevAdapt.defaultSettings[option] !== undefined)
 				{
 					if(settings !== undefined){
 						data.settings[option] = settings;
@@ -27,7 +27,7 @@
 			else return false;
 		}
 
-		settings = $.extend({}, $.fn.wJSNova.defaultSettings, settings || {});
+		settings = $.extend({}, $.fn.famPrevAdapt.defaultSettings, settings || {});
 
 		return this.each(function()
 		{
@@ -35,18 +35,18 @@
 
 			var $settings = jQuery.extend(true, {}, settings);
 
-			var jsn = new JSNova($settings);
+			var jsn = new FPAdapt($settings);
 
 			$elem.append(jsn.generate());
 			jsn.resize();
 
-			$elem.data('_wJSNova', jsn);
+			$elem.data('_famPrevAdapt', jsn);
 		});
 	}
 
-	$.fn.wJSNova.defaultSettings = {};
+	$.fn.famPrevAdapt.defaultSettings = {};
 
-	function JSNova(settings)
+	function FPAdapt(settings)
 	{
 		this.jsn = null;
 		this.settings = settings;
@@ -67,7 +67,7 @@
 		return this;
 	}
 
-	JSNova.prototype = 
+	FPAdapt.prototype = 
 	{
 		init: function()
 		{
@@ -84,7 +84,7 @@
 
 			$this.boxResult = $('<div id="result"></div>');
 			
-			$this.jsn = $('<div class="_wJSNova_holder"></div>').append($this.boxResult);
+			$this.jsn = $('<div class="_famPrevAdapt_holder"></div>').append($this.boxResult);
 			
 			return $this.jsn;
 		},
