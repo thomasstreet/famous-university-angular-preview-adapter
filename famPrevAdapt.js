@@ -82,7 +82,7 @@
 
 			$(document).ready(function() { $this.run(); });
 
-			$this.boxResult = $('<iframe id="iframe" class="_wJSNova_boxEdit" frameBorder="0"></iframe>');
+			$this.boxResult = $('<div id="result"></div>');
 			
 			$this.jsn = $('<div class="_wJSNova_holder"></div>').append($this.boxResult);
 			
@@ -112,15 +112,16 @@
 		
 		writeResult: function(result)
 		{
-			var iframe = this.boxResult[0];
+			var $this = this;
+			var iframe = $this.boxResult;
 		
 			if(iframe.contentDocument) doc = iframe.contentDocument;
 			else if(iframe.contentWindow) doc = iframe.contentWindow.document;
 			else doc = iframe.document;
 			
-			doc.open();
-			doc.writeln(result);
-			doc.close();
+			document.open();
+			document.writeln(result);
+			document.close();
 		},
 		
 		resize: function()
@@ -129,9 +130,6 @@
 			
 			var codeAreaWidth = this.jsn.outerWidth(true);
 			
-			// this.sidebar.css({top: 0, height: jsnHeight});
-			// this.codeArea.css({top: 0, height: jsnHeight, width: codeAreaWidth});
-
 			this.run();
 		}
 	}
