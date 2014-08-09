@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Websanova jQuery Plugin Development Boilerplate</title>
+	<title>Famo.us University | Famo.us/Angular</title>
 
 	<script type="text/javascript" src="./inc/jquery.1.7.1.min.js"></script>
 	
@@ -34,11 +34,13 @@
 			}
 		}
 
+
 		$(document).ready(function()
 		{
 			$('#JSNova').height($(window).height());
 			jsn = $("#JSNova").famPrevAdapt();
 			jsn.famPrevAdapt('resize');
+			window.setFamousContent({html: "<div>YAS</div>", css: "div {background-color: red;}", js: "alert('yas yas');"});
 		});
 		
 		$(window).resize(function()
