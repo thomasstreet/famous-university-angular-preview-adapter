@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Famo.us University | Famo.us/Angular</title>
+  <title>Famo.us University | Famo.us/Angular</title>
 </head>
 <body>
 
-	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-	<script type="text/javascript" src="bower_components/famous/famous-global.js"></script>
-	<script type="text/javascript" src="bower_components/famous-angular/dist/famous-angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/famous/famous-global.js"></script>
+  <script type="text/javascript" src="bower_components/famous-angular/dist/famous-angular.js"></script>
 
-	<div id="app-container" ng-app="famous-university" style="width:100%;">
-		<div id="content-container"></div>
-	</div>
+  <div id="app-container" ng-app="famous-university" style="width:100%;">
+    <div id="content-container"></div>
+  </div>
 
-	<script type="text/javascript">
-		angular.module('famous-university', ['famous.angular']);
-	</script>
+  <script type="text/javascript">
+    angular.module('famous-university', ['famous.angular']);
+  </script>
 
-	<script type="text/javascript">
-		
-		var _previousHTMLNode = undefined;
+  <script type="text/javascript">
+    
+    var _previousHTMLNode = undefined;
 
-		window._handlerFunctions = {
-			css: function(cssString){
-				document.querySelector('head').innerHTML = "<style>html, body{margin: 0; padding: 0;} " + cssString + "</style>";
-			},
-			html: function(htmlString){
-				var injector = angular.injector(['ng','famous-university']);
-				injector.invoke(function($rootScope, $compile){
-					//grab the container
-					var container = document.querySelector('#content-container');
+    window._handlerFunctions = {
+      css: function(cssString){
+        document.querySelector('head').innerHTML = "<style>html, body{margin: 0; padding: 0;} " + cssString + "</style>";
+      },
+      html: function(htmlString){
+        var injector = angular.injector(['ng','famous-university']);
+        injector.invoke(function($rootScope, $compile){
+          //grab the container
+          var container = document.querySelector('#content-container');
 
-					//remove old compiled node
-					if(_previousHTMLNode !== undefined) container.removeChild(_previousHTMLNode);
+          //remove old compiled node
+          if(_previousHTMLNode !== undefined) container.removeChild(_previousHTMLNode);
 
-					//compile new node with Angular hooks
-					var node = $compile(htmlString)($rootScope);
+          //compile new node with Angular hooks
+          var node = $compile(htmlString)($rootScope);
 
-					//keep track of this new node as the "previous node" for next time
-					_previousHTMLNode = node[0];
+          //keep track of this new node as the "previous node" for next time
+          _previousHTMLNode = node[0];
 
-					//actually add the new compiled node to the document
-					container.appendChild(node[0]);
+          //actually add the new compiled node to the document
+          container.appendChild(node[0]);
 
-					//make Angular digest in order to kick everything off
-					if(!$rootScope.$$phase)$rootScope.$apply();
-				})
-			},
-			js: function(jsString){
-				eval(jsString);
-			}
-		}
+          //make Angular digest in order to kick everything off
+          if(!$rootScope.$$phase)$rootScope.$apply();
+        })
+      },
+      js: function(jsString){
+        eval(jsString);
+      }
+    }
 
-		window.setFamousContent = function(content) {
-			angular.forEach(['js', 'css', 'html'], function(prop){
-				if(prop !== undefined) _handlerFunctions[prop](content[prop]);
-			});
-		}
+    window.setFamousContent = function(content) {
+      angular.forEach(['js', 'css', 'html'], function(prop){
+        if(prop !== undefined) _handlerFunctions[prop](content[prop]);
+      });
+    }
 
-		// example call:
-		
-		// window.setFamousContent({
-		// 	html: "<fa-app ng-controller='TestCtrl' style='width: 320px; height: 568px;'><fa-modifier fa-translate='[0, random300(), 1]' fa-origin='[.5, .5]'><fa-surface fa-size='[20, 20]'><div class='red'>gurl</div></fa-surface></fa-modifier></fa-app>",
-		// 	js: "angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!'; $scope.random300 = function(){return Math.random() * 300}})",
-		// 	css: "div.red {background-color: red}"
-		// });
+    // example call:
+    
+    // window.setFamousContent({
+    //   html: "<fa-app ng-controller='TestCtrl' style='width: 320px; height: 568px;'><fa-modifier fa-translate='[0, random300(), 1]' fa-origin='[.5, .5]'><fa-surface fa-size='[20, 20]'><div class='red'>gurl</div></fa-surface></fa-modifier></fa-app>",
+    //   js: "angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!'; $scope.random300 = function(){return Math.random() * 300}})",
+    //   css: "div.red {background-color: red}"
+    // });
 
-	</script>
+  </script>
 
 </body>
 </html>
