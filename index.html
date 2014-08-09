@@ -2,51 +2,61 @@
 <html>
 <head>
 	<title>Famo.us University | Famo.us/Angular</title>
-
-	<script type="text/javascript" src="./inc/jquery.1.7.1.min.js"></script>
-	
-	<script type="text/javascript" src="./famPrevAdapt.js"></script>
 	
 	<style>
 		body,html{margin:0px; overflow:hidden;}
-
-		body div._wJSNova_sidebar { display: none; width: 0; }
 	</style>
 </head>
 <body>
 
-	<div id="JSNova" style="width:100%;height:0px;"></div>
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="bower_components/famous/famous-global.js"></script>
+	<script type="text/javascript" src="bower_components/famous-angular/dist/famous-angular.js"></script>
+
+	<div id="app-container" ng-app="famous-university" style="width:100%;">
+		<div id="content-container"></div>
+	</div>
+
+
+	<script type="text/javascript">
+		angular.module('famous-university', ['famous.angular']);
+		angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!';})
+	</script>
 
 	<script type="text/javascript">
 		
-		var jsn = null;
+		var _previousHTMLNode = undefined;
 
-		window.famousContent = {
-		  html: "<div>some HTML content</div>",
-		  css: ".some-css{display: none;}",
-		  js: "var some = 'javascript';"
-		};
-
-		window.setFamousContent = function(fCont) {
-			if (typeof(fCont) != "undefined")	{
-				window.famousContent = fCont;
-				jsn.famPrevAdapt('run');
+		window._handlerFunctions = {
+			css: function(cssString){
+				document.querySelector('head').innerHTML = "<style>html, body{margin: 0; padding: 0;} " + cssString + "</style>";
+			},
+			html: function(htmlString){
+				var injector = angular.injector(['ng','famous-university']);
+				injector.invoke(function($rootScope, $compile){
+					var container = document.querySelector('#content-container');
+					if(_previousHTMLNode !== undefined) container.removeChild(_previousHTMLNode);
+					var node = $compile(htmlString)($rootScope);
+					console.log('new node', node)
+					container.appendChild(node[0]);
+				})
+			},
+			js: function(jsString){
+				console.log('evaling', jsString)
+				eval(jsString);
 			}
 		}
 
+		window.setFamousContent = function(content) {
+			angular.forEach(['js', 'css', 'html'], function(prop){
+				if(prop !== undefined) _handlerFunctions[prop](content[prop]);
+			});
+		}
 
-		$(document).ready(function()
-		{
-			$('#JSNova').height($(window).height());
-			jsn = $("#JSNova").famPrevAdapt();
-			jsn.famPrevAdapt('resize');
-			window.setFamousContent({html: "<div>YAS</div>", css: "div {background-color: red;}", js: "alert('yas yas');"});
-		});
-		
-		$(window).resize(function()
-		{
-			$('#JSNova').height($(window).height());
-			jsn.famPrevAdapt('resize');
+		window.setFamousContent({
+			html: "<div ng-controller='TestCtrl'>{{test}}test</div>",
+			js: "angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!';})",
+			css: ""
 		});
 
 	</script>
