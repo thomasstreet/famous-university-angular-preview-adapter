@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "famous-angular": "master"
+    "famous-angular": "master",
+    "jquery": "~2.1.1"
   }
 }

@@ -5,6 +5,7 @@
 </head>
 <body>
 
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="bower_components/famous/famous-global.js"></script>
   <script type="text/javascript" src="bower_components/famous-angular/dist/famous-angular.js"></script>
@@ -26,6 +27,7 @@
         document.querySelector('head').innerHTML = "<style>html, body{margin: 0; padding: 0;} " + cssString + "</style>";
       },
       html: function(htmlString){
+      	htmlString = "<div>" + htmlString + "</div>";
         var injector = angular.injector(['ng','famous-university']);
         injector.invoke(function($rootScope, $compile){
           //grab the container
