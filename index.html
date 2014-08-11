@@ -29,7 +29,7 @@
       html: function(htmlString){
       	htmlString = "<div>" + htmlString + "</div>";
         var injector = angular.injector(['ng','famous-university']);
-        injector.invoke(function($rootScope, $compile){
+        injector.invoke(function($rootScope, $compile, $timeout){
           //grab the container
           var container = document.querySelector('#content-container');
 
@@ -37,8 +37,13 @@
           if(_previousHTMLNode !== undefined) container.removeChild(_previousHTMLNode);
 
           //compile new node with Angular hooks
-          var node = $compile(htmlString)($rootScope);
-
+          // debugger
+          try {
+            var node = $compile(htmlString)($rootScope);
+          }
+          catch (e) {
+            console.log(e)
+          }
           //keep track of this new node as the "previous node" for next time
           _previousHTMLNode = node[0];
 
@@ -46,27 +51,31 @@
           container.appendChild(node[0]);
 
           //make Angular digest in order to kick everything off
-          if(!$rootScope.$$phase)$rootScope.$apply();
+          if(!$rootScope.$$phase)$rootScope.$apply();            
         })
       },
-      js: function(jsString){
+      javascript: function(jsString){
         eval(jsString);
       }
     }
 
+
+
     window.setFamousContent = function(content) {
-      angular.forEach(['js', 'css', 'html'], function(prop){
+      angular.forEach(['javascript', 'css', 'html'], function(prop){
         if(prop !== undefined) _handlerFunctions[prop](content[prop]);
       });
     }
 
     // example call:
 
+
     // window.setFamousContent({
     //   html: "<fa-app ng-controller='TestCtrl' style='width: 320px; height: 568px;'><fa-modifier fa-translate='[0, random300(), 1]' fa-origin='[.5, .5]'><fa-surface fa-size='[20, 20]'><div class='red'>gurl</div></fa-surface></fa-modifier></fa-app>",
-    //   js: "angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!'; $scope.random300 = function(){return Math.random() * 300}})",
+    //   javascript: "angular.module('famous-university').controller('TestCtrl', function($scope){ $scope.test = 'wooooo!'; $scope.random300 = function(){return Math.random() * 300}})",
     //   css: "div.red {background-color: red}"
     // });
+
 
   </script>
 
