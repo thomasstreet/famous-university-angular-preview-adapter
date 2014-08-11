@@ -29,7 +29,7 @@
       html: function(htmlString){
       	htmlString = "<div>" + htmlString + "</div>";
         var injector = angular.injector(['ng','famous-university']);
-        injector.invoke(function($rootScope, $compile, $timeout){
+        injector.invoke(function($rootScope, $compile){
           //grab the container
           var container = document.querySelector('#content-container');
 
@@ -37,7 +37,6 @@
           if(_previousHTMLNode !== undefined) container.removeChild(_previousHTMLNode);
 
           //compile new node with Angular hooks
-          // debugger
           try {
             var node = $compile(htmlString)($rootScope);
           }
@@ -55,7 +54,12 @@
         })
       },
       javascript: function(jsString){
-        eval(jsString);
+        try {
+          eval(jsString);
+        }
+        catch(e) {
+          console.log(e);
+        }
       }
     }
 
