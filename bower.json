@@ -5,6 +5,7 @@
   "authors": [
     "Zack Brown <zack@thomasstreet.com>"
   ],
+  "directory": "bower_components",
   "description": "PreviewAdapter for Famo.us/Angular in Famo.us University",
   "main": "index.html",
   "license": "MPL v2.0",
