@@ -23,10 +23,10 @@ window._handlerFunctions = {
         console.log(e)
       }
       //keep track of this new node as the "previous node" for next time
-      _previousHTMLNode = node[0];
+      _previousHTMLNode = node && node[0];
 
       //actually add the new compiled node to the document
-      container.appendChild(node[0]);
+      node && container.appendChild(node[0]);
 
       //make Angular digest in order to kick everything off
       if(!$rootScope.$$phase)$rootScope.$apply();            
