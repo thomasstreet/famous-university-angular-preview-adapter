@@ -1,4 +1,6 @@
 var _previousHTMLNode = undefined;
+var _errorFlag = false;
+window.addEventListener('error',function () { _errorFlag = true; console.log(err) });
 
 window._handlerFunctions = {
   css: function(cssString){
@@ -55,6 +57,10 @@ window.setFamousContent = function(content) {
   angular.forEach(['javascript', 'css', 'html'], function(prop){
     if(prop !== undefined) _handlerFunctions[prop](content[prop]);
   });
+  if(_errorFlag) {
+    _errorFlag = false;
+    window.location.reload();
+  }
 }
 
 // example call:
