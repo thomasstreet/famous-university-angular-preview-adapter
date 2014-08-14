@@ -1,6 +1,6 @@
 var _previousHTMLNode = undefined;
 var _errorFlag = false;
-window.addEventListener('error',function () { _errorFlag = true; console.log(err) });
+window.addEventListener('error',function (err) { _errorFlag = true; console.log(err); });
 
 window._handlerFunctions = {
   css: function(cssString){
@@ -37,7 +37,7 @@ window._handlerFunctions = {
   javascript: function(jsString){
     var oldScript = document.querySelector('#injectable-script');
     var body = document.querySelector('body');
-    console.log('src', oldScript)
+    // console.log('src', oldScript)
     if(oldScript !== null && oldScript !== undefined){
       body.removeChild(oldScript);
     }
@@ -57,9 +57,13 @@ window.setFamousContent = function(content) {
   angular.forEach(['javascript', 'css', 'html'], function(prop){
     if(prop !== undefined) _handlerFunctions[prop](content[prop]);
   });
+  // Very hacky solution but when the size is set to [undefined,undefined] it resolves only on window resize hance this. This needs attention form famous.
+  window.dispatchEvent(new Event('resize'));
+
   if(_errorFlag) {
     _errorFlag = false;
     window.location.reload();
+
   }
 }
 
