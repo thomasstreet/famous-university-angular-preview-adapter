@@ -5,7 +5,6 @@
   "authors": [
     "Zack Brown <zack@thomasstreet.com>"
   ],
-  "directory": "bower_components",
   "description": "PreviewAdapter for Famo.us/Angular in Famo.us University",
   "main": "index.html",
   "license": "MPL v2.0",
@@ -18,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "famous-angular": "master",
+    "famous-angular": "0.3.0",
     "jquery": "~2.1.1"
   }
 }
